@@ -55,7 +55,7 @@
 <div class="socials">
 <a class="social" href="https://www.instagram.com/guaraagency.mkt/" target="_blank" rel="noopener noreferrer"><span>Instagram<span class="social-secondary">Perfil da Guará Agency ↗</span></span><span aria-hidden="true">◎</span></a>
 <a class="social" href="#/servicos"><span>Todos os serviços<span class="social-secondary">Fotografia, eventos e social media</span></span><span aria-hidden="true">↗</span></a>
-<a class="social primary" id="social-whatsapp" href="" target="_blank" rel="noopener noreferrer"><span>WhatsApp<span class="social-secondary">Orçamento via Guará Agency</span></span><span aria-hidden="true">✉</span></a>
+<a class="social primary" id="social-whatsapp" href="" target="_blank" rel="noopener noreferrer"><span>WhatsApp<span class="social-secondary">Contato demonstrativo</span></span><span aria-hidden="true">✉</span></a>
 </div></div>
 <div class="travel-heading"><span>Cerimônias &nbsp; ↓</span><a href="#/cerimonias">Ver todas</a></div><div class="city-grid" id="cities"></div>
 <div class="section-head"><h2>Photo Books &nbsp; ↓</h2><a href="#/photobooks">Ver todos</a></div><div class="mini-grid" id="previews"></div>
@@ -63,13 +63,14 @@
 <div class="section-head"><h2>Galeria de fotografias &nbsp; ↓</h2><a href="#/screensaver">Abrir tela cheia ↗</a></div><div class="mini-grid" id="photo-samples"></div>
 <div class="home-cta"><div><small>Vamos criar seu projeto?</small><h2>Conte sua ideia para a Guará.</h2><p>Modelo demonstrativo: fale com a agência para personalizar um site como este.</p></div><a id="final-whatsapp" href="" target="_blank" rel="noopener noreferrer">Solicitar orçamento ↗</a></div>
 <footer class="footer"><span>© <span id="year"></span> Marina Azevedo · Identidade demonstrativa</span><span>Modelo demonstrativo desenvolvido pela <a href="https://guaraagency.com.br/" target="_blank" rel="noopener noreferrer">Guará Agency</a></span></footer>
-<p class="demo-disclaimer">Conteúdo, profissional e trabalhos fictícios. Imagens ilustrativas. Os contatos exibidos encaminham à <a href="https://www.guaraagency.com.br/" target="_blank" rel="noopener noreferrer">Guará Agency</a>.</p>
+<p class="demo-disclaimer">Conteúdo, profissional e trabalhos fictícios. Imagens ilustrativas. Os contatos são simulados e não enviam dados.</p>
 </div></div>
 <main class="page" id="page" tabindex="-1"></main>
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Fotografia ampliada"><button class="close" id="close" aria-label="Fechar visualização">×</button><button class="prev" id="light-prev" aria-label="Foto anterior">‹</button><img id="enlarged" alt=""><p id="photo-caption"></p><button class="next" id="light-next" aria-label="Próxima foto">›</button></div>
+<dialog id="contact-demo" aria-labelledby="contact-demo-title"><h2 id="contact-demo-title">Contato demonstrativo</h2><p>Este é um modelo de portfólio. Nenhuma mensagem foi enviada.</p><button type="button" id="contact-demo-close">Entendi</button></dialog>
 <script>
 const CONFIG={name:"Marina Azevedo",role:"Fotógrafa e criadora de conteúdo",bio:"Sou Marina, fotógrafa e criadora visual. Registro cerimônias, encontros e histórias de pessoas e marcas, com fotografia e conteúdo pensado para cada ocasião. Este é um perfil demonstrativo criado pela Guará Agency.",avatar:"https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=180&q=80"};
-const whatsapp="https://wa.me/5532976718309?text="+encodeURIComponent("Olá! Vi o modelo Portfólio 02 da Guará Agency e gostaria de saber sobre a criação de um site para meu negócio.");
+const whatsapp="#contato-demo";
 const img=(id,w=900)=>"https://images.unsplash.com/"+id+"?auto=format&fit=crop&w="+w+"&q=82";
 const highlights=[
 {image:"photo-1511285560929-80b456fea0bc",title:"Momentos que merecem ser lembrados.",caption:"Cerimônias e histórias de amor"},
@@ -126,7 +127,7 @@ el("previews").innerHTML=photobooks.slice(0,6).map(x=>'<a href="#/photobooks"><i
 el("home-events").innerHTML=events.map(x=>'<a class="story-card" href="#/eventos"><img src="'+img(x.image,700)+'" loading="lazy" alt="'+x.name+'"><div class="story-copy"><strong>'+x.name+'</strong><p>'+x.subtitle+'</p></div></a>').join("");
 el("photo-samples").innerHTML=galleryImages.slice(5,11).map(x=>'<a href="#/screensaver"><img src="'+img(x,550)+'" loading="lazy" alt="Fotografia ilustrativa"><p>Ver na galeria ↗</p></a>').join("");
 el("person").textContent=CONFIG.name;el("role").textContent=CONFIG.role;el("bio").textContent=CONFIG.bio;el("avatar").src=CONFIG.avatar;el("year").textContent=new Date().getFullYear();
-["profile-whatsapp","social-whatsapp","final-whatsapp"].forEach(id=>el(id).href=whatsapp);
+["profile-whatsapp","social-whatsapp","final-whatsapp"].forEach(id=>{const a=el(id);a.href=whatsapp;a.removeAttribute("target");a.addEventListener("click",e=>{e.preventDefault();el("contact-demo").showModal()})});el("contact-demo-close").onclick=()=>el("contact-demo").close();
 el("previous").onclick=()=>{slide(active-1);timer()};el("following").onclick=()=>{slide(active+1);timer()};
 el("dots").onclick=e=>{const b=e.target.closest("[data-slide]");if(b){slide(Number(b.dataset.slide));timer()}};
 el("theme").onclick=()=>{const dark=document.body.classList.toggle("dark");el("theme").setAttribute("aria-pressed",String(dark))};
